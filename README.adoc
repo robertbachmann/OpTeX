@@ -1,6 +1,5 @@
 = OpTeX
 
-Unofficial mirror of OpTeX.
-
-See http://petr.olsak.net/optex/
+* Home page: http://petr.olsak.net/optex/
+* CTAN: https://www.ctan.org/pkg/optex
 
