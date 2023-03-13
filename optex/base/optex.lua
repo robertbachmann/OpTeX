@@ -23,15 +23,44 @@ local function registernumber(name)
 end
 _ENV.registernumber = registernumber
 optex.registernumber = registernumber
+
+--
+-- Like `\_opwarning`
+function optex.warning(message)
+    texio.write_nl('term and log', string.format("WARNING l.%d: %s.", tex.inputlineno or 0, message))
+end
+
+local seen = {}
+function dump(name, t)
+    seen[t] = true
+    for k, v in pairs(t) do
+        print(name, k, v)
+        if type(v) == 'table' and not seen[v] then
+            dump(name .. '.' .. tostring(k), v)
+        end
+    end
+end
+
+--dump('_G', _G)
+
 --
 -- MD5 hash of given file.
 function optex.mdfive(file)
-    local fh = io.open(file, "rb")
-    if fh then
-        local data = fh:read("*a")
-        fh:close()
-        tex.print(md5.sumhexa(data))
-   end
+    local file_resolved = kpse.find_file(file, "other text files", true)
+
+    if file_resolved then
+        print("FILE FOUND: " .. file_resolved)
+        local fh = io.open(file_resolved, "rb")
+        if fh then
+            local data = fh:read("*a")
+            fh:close()
+            tex.print(md5.sumhexa(data))
+        else
+            optex.warning(string.format('Could not read file "%s"', file_resolved))
+        end
+    else
+        optex.warning(string.format('Could not find file "%s"', file))
+    end
 end
 --
 -- \medskip\secc[lua-alloc] Allocators^^M
@@ -69,9 +98,9 @@ _ENV.callback = callback
 --
 -- Save `callback.register` function for internal use.
 local callback_register = callback.register
-function callback.register(name, fn)
-    err("direct registering of callbacks is forbidden, use 'callback.add_to_callback'")
-end
+--function callback.register(name, fn)
+--    err("direct registering of callbacks is forbidden, use 'callback.add_to_callback'")
+--end
 --
 -- Table with lists of functions for different callbacks.
 local callback_functions = {}
@@ -338,6 +367,50 @@ function callback.call_callback(name, ...)
     return not changed or head
 end
 call_callback = callback.call_callback
+
+
+--
+-- Return the path of the output directory
+--
+local output_directory = nil
+function optex.getoutputdirectory()
+    if output_directory == nil then
+        return ''
+    end
+    return output_directory
+end
+
+--callback.register('find_output_file', function(name)
+--    print("YYxxxxxxxxY", kpse.find_file(tex.jobname .. '.ref'))
+--    print("XXX find_output_file", name)
+--    return name
+--end)
+
+--
+-- TODO
+--
+if false then
+callback.add_to_callback("start_file", function(category, filename)
+    if output_directory == nil then
+        local needle = tex.jobname .. '.ref'
+        if #filename >= #needle then
+            local sub = string.sub(filename, #filename - #needle + 1)
+            if sub == needle then
+                output_directory = string.sub(filename, 1, #filename - #needle)
+                callback.register('start_file', nil)
+            end
+        end
+    end
+
+    if category == 1 then
+        --texio.write('log and term', string.format("(%s", filename))
+    else
+        --texio.write('log and term', string.format("%d{%s", category, filename))
+        texio.write('log and term', "?")
+    end
+end)
+end
+
 --
 -- Create \"virtual" callbacks `pre/post_mlist_to_hlist_filter` by setting
 -- `mlist_to_hlist` callback. The default behaviour of `mlist_to_hlist` is kept by

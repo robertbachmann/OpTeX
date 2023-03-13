@@ -135,7 +135,9 @@
 \_def\_byehook{%
    \_ifx\_initunifonts\_relax \_relax\_else \_opwarning{Unicode font was not loaded}\_fi
    \_immediate\_closeout\_reffile
-   \_edef\_tmp{\_mdfive{\_jobname.ref}}%
+   \_isfile{\_jobname.ref}\_iftrue%
+   \_edef\_tmp{\_mdfive{\_jobname.ref}}\_else%
+   \_edef\_tmp{}\_fi%
    \_ifx\_tmp\_prevrefhash\_else \_opwarning{Try to rerun,
       \_jobname.ref file was \_ifx\_prevrefhash\_empty created\_else changed\_fi}\_fi
 }
