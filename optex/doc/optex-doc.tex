@@ -1,7 +1,8 @@
 %% This is part of the OpTeX project, see http://petr.olsak.net/optex
 
-% Run  optex optex-doc 
-% (three times) to generate OpTeX documentation including references and the index. 
+% Run
+%    optex optex-doc
+% three times to generate OpTeX documentation including references and the index.
 
 \load [doc.opm]  \let\enddocument=\endinput
 \let\_catcodedot=\relax \catcode`\.=12 % we are not using \.foo sequences
@@ -18,7 +19,7 @@
 \centerline{\setfontsize{at50pt}\rm\OpTeX}
 \vskip-8mm
 
-\tit Format Based on Plain \TeX/ and OPmac\fnotemark1
+\tit A format based on Plain \TeX/ and OPmac\fnotemark1
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \hfill Version 1.11+
@@ -30,61 +31,69 @@
 
 \fnotetext {OPmac package is a set of simple additional macros to Plain \TeX{}.
 It enables users to take advantage of \LaTeX/ functionality but keeps
-Plain \TeX/ simplicity. See
-\url{http://petr.olsak.net/opmac-e.html} for more information about it.}
+the simplicity of Plain \TeX{}. See
+\url{http://petr.olsak.net/opmac-e.html} for more information.}
 
 \bigskip
 \noindent
-\OpTeX/ is \LuaTeX/ format with Plain \TeX/ and OPmac. Only \LuaTeX/ engine
+\OpTeX/ is a \LuaTeX/ format with Plain \TeX/ and OPmac. Only the \LuaTeX/ engine
 is supported. 
 
-\OpTeX/ should be a modern Plain \TeX/ with power from OPmac (Fonts
-Selection System, colors, graphics, references, hyperlinks,
-indexing, bibliography, ...) with preferred Unicode fonts.
+\OpTeX/ aims to be a modern Plain \TeX/
+with OpenType Unicode fonts and the power from OPmac
+(Fonts Selection System, colors, graphics, references, hyperlinks,
+indexing, bibliography, \dots)
 
-The main goal of \OpTeX/ is:
+The main features of \OpTeX/ are:
 
 \begitems
 * \OpTeX/ keeps the simplicity (like in Plain \TeX/ and OPmac macros).
-* There is no old obscurities concerning various 8-bit encodings and
-  various engines.
-* \OpTeX/ provides a powerful Fonts Selection System (for Unicode font
-  families, of course).
-* \OpTeX/ supports hyphenations of all languages installed in your \TeX/ system.
-* All features from OPmac macros are copied. For example sorting words in
+* No old obscurities with various 8-bit text encodings and \TeX/ engines.
+* \OpTeX/ provides a powerful Fonts Selection System for Unicode font
+  families.
+* \OpTeX/ supports hyphenation for all languages installed in your \TeX/ system.
+* All features from OPmac are supported. For example sorting words in
   the Index\fnotemark1, reading `.bib` files directly\fnotemark1, syntax 
   highlighting\fnotemark1, colors, graphics, hyperlinks, references).
   \fnotetext{All these features are implemented by \TeX/ macros, no external
              program is needed.}
-* Macros are documented in the same place where code is.
-* User namespace of control sequences is separated from the internal namespace
-  of \OpTeX/ and primitives (`\foo` versus `\_foo`).
-  The namespaces for macro writers are designed too.
+* Macros are documented in the same place where the code is implemented.
+* No namespace conflicts: The user namespace of control sequences is separated from the internal namespace
+  of \OpTeX/ and primitives (`\foo` versus `\_foo`). The namespaces for  macro package writers are specified too.
 \enditems
 
+\OpTeX/ offers a markup language for authors of texts (like \LaTeX),
+that means a fixed set of tags to define the structure of the document. This
+markup is different from the \LaTeX{} markup.
+It aims to make your \TeX/ sources easier to read.
+
+If you need to customize your document you can copy the relevant parts
+of \OpTeX/ macros into your macro file and customize these macros there.
+This is a significant difference from
+\LaTeX/ or ConTeXt, which attempt to create a new user (abstraction) level with
+plenty of non-primitive parameters and a syntax that hides \TeX/ internals.
 If you need to customize your document or you need to use something
 very specific, then you can copy relevant parts of \OpTeX/ macros into your macro
 file and do changes to these macros here. This is a significant difference from
 \LaTeX/ or ConTeXt, which is an attempt to create a new user level with a
 plenty of non-primitive parameters and syntax hiding \TeX/ internals.
 The macros from \OpTeX/ are simple and straightforward because they solve only
-what is explicitly needed, they do not create a new user level for
-controlling your document. We are using \TeX/ directly in this case.
+what is explicitly needed and do not create a new user abstraction level for
+controlling your document.  We are using \TeX/ directly in this case.
 You can use \OpTeX/ macros, understand them, and modify them.
 
 \OpTeX/ offers a markup language for authors of texts (like \LaTeX),
 i.\,e.\ the fixed set of tags to define the structure of the document. This
 markup is different from the \LaTeX{} markup. It may offer to write the
-source text of the document somewhat clearer and more attractive. 
+source text of the document somewhat clearer and more attractive.
 
 The manual includes two parts: user documentation and technical
 documentation. The second part is generated directly from the sources of
 \OpTeX/. There are many hyperlinks from one part to second and vice versa.
 
 This manual describes \OpTeX/ features only. We suppose that the user knows \TeX/
-basics. They are described in many books. You can see a short
-document \ulink[http://petr.olsak.net/ftp/olsak/optex/tex-nutshell.pdf]
-{\TeX/ in nutshell} too.
+basics. They are described in many books. \ulink[http://petr.olsak.net/ftp/olsak/optex/tex-nutshell.pdf]
+{\TeX/ in nutshell} provides a short introduction.
 
 \vfil\break
 

@@ -10,7 +10,7 @@
 
 \new
 \OpTeX/ is compiled as a format for \LuaTeX/. Maybe there is a command
-`optex` in your \TeX/ distribution. Then you can write into the command line
+`optex` in your \TeX/ distribution. Then you can type into the command line:
 
 \begtt
 optex document
@@ -21,15 +21,16 @@ You can try to process `optex op-demo` or `optex optex-doc`.
 If there is no `optex` command, see more information about installation
 \OpTeX/ at \url{http://petr.olsak.net/optex}.
 
-A minimal document should be
+A minimal document would be:
 
 \begtt
 \fontfam[LMfonts]
 Hello World! \bye
 \endtt
 
-The first line \~`\fontfam[LMfonts]` tells that Unicode Latin Modern
-fonts (derived from Computer Modern) are used. If you omit this line then
+The first line \~`\fontfam[LMfonts]` loads the Unicode Latin Modern\fnote{
+    An extended version of Computer Modern.}
+fonts are used. If you omit this line then
 preloaded Latin Modern fonts are used but preloaded fonts cannot be in
 Unicode\fnote
 {This is a technical limitation of \LuaTeX/ for fonts downloaded in formats:
@@ -40,7 +41,7 @@ where Unicode fonts are needed
 because the characters like `ě` are not mapped correctly in preloaded
 fonts.
 
-A somewhat larger example with common settings should be:
+A somewhat larger example with common settings would be:
 
 \begtt \catcode`!=0
 \fontfam[Termes]  % selecting Unicode font family Termes (section !ref[fontfam])
@@ -60,8 +61,8 @@ You can look at `op-demo.tex` file for a more complex, but still simple example.
 \secc[marg] Setting the margins
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The \^`\margins` command declares margins of the document. This command have
-the following parameters:
+The \^`\margins` command declares the document's margins.
+This command has the following parameters:
 
 \begtt \catcode`\<=13
 \margins/<pg> <fmt> (<left>,<right>,<top>,<bot>)<unit>
@@ -69,20 +70,20 @@ the following parameters:
 \margins/1 a4 (2.5,2.5,2,2)cm
 \endtt
 
-Parameters are:
+The parameters are:
 
 \begitems
-* <pg> \dots\ `1` or `2` specifies one-page or two-pages design.
+* <pg> \dots\ `1` or `2` specifies one-page or two-pages (two-sided/duplex) design.
 * <fmt> \dots\ paper format (a4, a4l, a5, letter, etc. or user defined).
 * <left>, <right>, <top>, <bot> \dots\ gives the amount of left, right,
       top and bottom margins.
-* <unit> \dots\ unit used for values <left>, <right>, <top>, <bot>.
+* <unit> \dots\ unit used for values <left>, <right>, <top>, <bottom>.
 \enditems
 
-Each of the parameters <left>, <right>, <top>, <bot> can be empty.
-If both <left> and <right> are nonempty then `\hsize` is set. Else `\hsize`
-is unchanged. If both <left> and <right> are empty then typesetting area is
-centered in the paper format. The analogical rule works when <top> or <bot>
+Each of the parameters <left>, <right>, <top>, <bottom> can be empty.
+If both <left> and <right> are non-empty then `\hsize` is set, otherwise `\hsize`
+remains unchanged. If both <left> and <right> are empty then the typesetting area is
+centered in the paper format. The analogical rule applies when <top> or <bot>
 parameter is empty (`\vsize` instead `\hsize` is used). Examples:
 
 \begtt
@@ -93,8 +94,8 @@ parameter is empty (`\vsize` instead `\hsize` is used). Examples:
 \endtt
 
 If `<pg>=1` then all pages have the same margins. If `<pg>=2` then the
-declared margins are true for odd pages. The margins at the even pages are
-automatically mirrored in such case, it means that <left> is replaced by
+declared margins apply to odd pages. The margins for even pages are
+automatically mirrored: <left> is replaced by
 <right> and vice versa.
 
 \OpTeX/ declares following paper formats: a4, a4l (landscape~a4),
@@ -106,7 +107,7 @@ a5, a5l, a3, a3l, b5, letter and user can declare another own format by \~`\sdef
 \endtt
 
 The `<fmt>` can be also in the form `(<width>,<height>)<unit>` where `<unit>` is
-optional. If it is missing then `<unit>` after margins specification is
+optional. If it is missing then `<unit>` after the margin specification is
 used. For example:
 
 \begtt
@@ -114,7 +115,7 @@ used. For example:
 \endtt
 %
 declares the paper 100$\times$200\,mm with all four margins 7\,mm. The spaces
-before and after <fmt> parameter are necessary.
+before and after the <fmt> parameter are mandatory.
 
 The command \^`\magscale[<factor>]` scales the whole typesetting area.
 \new The fixed point of such scaling is the upper left corner of the paper sheet.
@@ -129,8 +130,8 @@ such scaling. Only paper format's dimensions stay unscaled. Example:
 The first line sets the `\hsize` and `\vsize` and margins for final
 printing at a5 format. The setting on the second line centers the scaled
 typesetting area to the true a4 paper while breaking points for paragraphs
-and pages are unchanged. It may be usable for
-review printing. After the review is done, the second line can be commented out.
+and pages remain unchanged. This can be useful for
+review printing. After review is done, the second line can be commented out.
 
 \secc Concept of the default page
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -177,7 +178,7 @@ The Plain \TeX/'s macro \^`\footnote` can be used as usual. But a new macro
 \^`\fnote{<text>}` is defined. The footnote mark is added automatically and it
 is numbered
 \new
-on each chapter from one\fnote
+by chapter starting from one\fnote
 {You can declare \^`\fnotenumglobal` if you want footnotes numbered in whole
 document from one or \^`\fnotenumpages` if you want footnotes numbered at each
 page from one. Default setting is \^`\fnotenumchapters`}.
@@ -215,7 +216,7 @@ If you need to place the notes only to the fixed margin write
 The <text> is formatted as a little paragraph with the maximal width
 \^`\mnotesize` ragged left on the left margins or ragged right on the right
 margins. The first line of this little paragraph has its vertical position
-given by the position of \^`\mnote` in the text. The exceptions are possible
+given by the position of \^`\mnote` in the text. Exceptions are possible
 by using the `up` keyword: \~`\mnote`` up<dimen>{<text>}`.
 You can set such <dimen> to each \^`\mnote` manually in final printing
 in order to margin notes do not overlap. The positive value of <dimen>
@@ -240,13 +241,13 @@ If you write \^`\fontfam[catalog]` then a catalog of all fonts registered in
 \OpTeX/ and available in your \TeX/ system is printed.
 See also \ulink[http://petr.olsak.net/ftp/olsak/optex/op-catalog.pdf]{this catalog}.
 
-If the family is loaded then {\em font modifiers} applicable in such font family
+When a font family is loaded then {\em font modifiers} applicable in such font family
 are listed on the terminal: (`\caps`, `\cond` for example).
 And there are four basic {\em variant selectors} (\^`\rm`, \^`\bf`, \^`\it`, \^`\bi`).
 The usage of variant selectors is the same as in Plain \TeX:
 `{\it italics text}`, `{\bf bold text}` etc.
 
-The font modifiers (`\caps`, `\cond` for example) can
+The font modifiers such as `\caps` or `\cond` can
 be used before a variant selector and they
 can be (independently) combined: `\caps\it` or `\cond\caps\bf`. The
 modifiers keep their internal setting until the group ends or until another
@@ -274,11 +275,20 @@ This is {\em important} text.     % = This is {\it important\/} text.
 \bi This is {\em important} text. % = This is\/ {\bf important} text.
 \endtt
 
+\begitems \style o
+* This is {\em important} text.
+* \bgroup\it This is {\em important} text.\egroup
+* \bgroup\bf This is {\em important} text.\egroup
+* \bgroup\bi This is {\em important} text.\egroup
+\enditems
+
+
 \new
 More about the \OpTeX/ Font Selection System is written in the technical
 documentation in the section~\ref[fontsystem].
-You can mix more font families in your document, you can
-declare your own variant selectors or modifiers, etc.
+You can mix multiple font families in your document, and you can
+declare your own variant selectors and modifiers.
+
 
 \secc[sizes] Font sizes
 %%%%%%%%%%%%%%%%%%%%%
